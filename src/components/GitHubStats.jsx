@@ -19,6 +19,35 @@ const LEVEL_COLORS = {
 
 const LOADING_COLOR = '#1a1a1a';
 
+// LocalStorage Caching configuration to prevent GitHub API rate limit errors
+const CACHE_KEY_PROFILE = 'github_profile_data';
+const CACHE_KEY_CONTRIBS = 'github_contrib_data';
+const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours cache TTL
+
+const getCachedData = (key) => {
+    try {
+        const cached = localStorage.getItem(key);
+        if (!cached) return null;
+        const { data, timestamp } = JSON.parse(cached);
+        if (Date.now() - timestamp > CACHE_TTL_MS) {
+            localStorage.removeItem(key);
+            return null;
+        }
+        return data;
+    } catch (e) {
+        return null;
+    }
+};
+
+const setCachedData = (key, data) => {
+    try {
+        localStorage.setItem(key, JSON.stringify({ data, timestamp: Date.now() }));
+    } catch (e) {
+        // Silently ignore quota exceeded errors
+    }
+};
+
+
 const HeatmapCanvas = memo(function HeatmapCanvas({ data, loading }) {
     const canvasRef = useRef(null);
     const containerRef = useRef(null);
@@ -105,6 +134,22 @@ const GitHubStats = memo(function GitHubStats() {
         let isCancelled = false;
 
         const fetchData = async () => {
+            // Check cache first
+            const cachedProfile = getCachedData(CACHE_KEY_PROFILE);
+            const cachedContribs = getCachedData(CACHE_KEY_CONTRIBS);
+
+            if (cachedProfile && cachedContribs) {
+                setUserData(cachedProfile);
+                if (cachedContribs.contributions) {
+                    const allDays = cachedContribs.contributions;
+                    const total = allDays.reduce((acc, day) => acc + day.count, 0);
+                    setContributionData(allDays.slice(-364));
+                    setTotalContributions(total);
+                }
+                setLoading(false);
+                return;
+            }
+
             try {
                 const [userRes, contribRes] = await Promise.all([
                     fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, { signal: controller.signal }),
@@ -113,13 +158,22 @@ const GitHubStats = memo(function GitHubStats() {
 
                 if (isCancelled) return;
 
+                // Only parse and cache if requests are successful
+                if (!userRes.ok || !contribRes.ok) {
+                    throw new Error('GitHub API error');
+                }
+
                 const userJson = await userRes.json();
                 if (isCancelled) return;
-                setUserData(userJson);
 
                 const contribJson = await contribRes.json();
                 if (isCancelled) return;
 
+                // Cache the fetched data
+                setCachedData(CACHE_KEY_PROFILE, userJson);
+                setCachedData(CACHE_KEY_CONTRIBS, contribJson);
+
+                setUserData(userJson);
                 if (contribJson.contributions) {
                     const allDays = contribJson.contributions;
                     const total = allDays.reduce((acc, day) => acc + day.count, 0);
@@ -130,6 +184,28 @@ const GitHubStats = memo(function GitHubStats() {
                 setLoading(false);
             } catch (error) {
                 if (error?.name === 'AbortError') return;
+
+                // Resilient Fallback: if offline or rate limited, try using expired cache anyway
+                try {
+                    const expiredProfileStr = localStorage.getItem(CACHE_KEY_PROFILE);
+                    const expiredContribsStr = localStorage.getItem(CACHE_KEY_CONTRIBS);
+                    if (expiredProfileStr && expiredContribsStr) {
+                        const expiredProfile = JSON.parse(expiredProfileStr).data;
+                        const expiredContribs = JSON.parse(expiredContribsStr).data;
+                        if (expiredProfile && expiredContribs) {
+                            setUserData(expiredProfile);
+                            if (expiredContribs.contributions) {
+                                const allDays = expiredContribs.contributions;
+                                const total = allDays.reduce((acc, day) => acc + day.count, 0);
+                                setContributionData(allDays.slice(-364));
+                                setTotalContributions(total);
+                            }
+                        }
+                    }
+                } catch (e) {
+                    // Ignore parsing errors
+                }
+
                 setLoading(false);
             }
         };
