@@ -5,6 +5,19 @@ import { Plus, Calendar, Building2, Sparkles, ArrowUpRight } from 'lucide-react'
 
 const experiences = [
   {
+    company: 'PT. Arina Digital Mandiri',
+    role: 'Front-End Developer Intern',
+    period: '9 Aug - 9 Sep 2026',
+    isActive: true,
+    impact: 'Contributing to front-end development and responsive web interface implementation during an intensive 1-month internship.',
+    stack: ['Front-End Development', 'HTML/CSS', 'JavaScript', 'Web Development'],
+    description: [
+      'Engaged in a 1-month Front-End Developer internship program from 9 August to 9 September 2026.',
+      'Developing and optimizing responsive, high-performance web interfaces and modern UI components.',
+      'Collaborating closely with the development team to build seamless digital solutions.',
+    ],
+  },
+  {
     company: 'UKM IECLOP, Politeknik Negeri Lhokseumawe',
     role: 'Infocom Division',
     period: '2025 - Present',
@@ -18,7 +31,8 @@ const experiences = [
   {
     company: 'PT. Sagoe Media Kreasi (SAGOE TV)',
     role: 'Video Editor',
-    period: '2026 - Present',
+    period: '2 Feb - 15 Jul 2026',
+    isActive: false,
     impact: 'Managed the end-to-end editing and production of short-form video content across multiple social media platforms.',
     stack: ['Video Editing', 'Content Production', 'Videography', 'Social Media'],
     description: [
@@ -34,7 +48,7 @@ function getStartYear(period) {
 }
 
 const ExperienceItem = ({ experience, isExpanded, onToggle, index }) => {
-  const isCurrent = /present/i.test(experience.period);
+  const isCurrent = experience.isActive ?? /present/i.test(experience.period);
 
   return (
     <article className="relative min-w-0">
@@ -132,7 +146,7 @@ const ProfessionalExperience = () => {
 
   const statCards = useMemo(() => {
     const roles = experiences.length;
-    const activeNow = experiences.filter((item) => /present/i.test(item.period)).length;
+    const activeNow = experiences.filter((item) => item.isActive ?? /present/i.test(item.period)).length;
     const organizations = new Set(experiences.map((item) => item.company)).size;
     const startYears = experiences.map((item) => getStartYear(item.period)).filter(Boolean);
     const firstYear = startYears.length ? Math.min(...startYears) : new Date().getFullYear();

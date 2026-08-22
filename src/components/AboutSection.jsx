@@ -13,10 +13,10 @@ const STATS = [
 ];
 
 const CAPABILITIES = [
-  'Video Production',
-  'Junior AI Engineering',
-  'Full-Stack Development',
+  'Front-End Development',
+  'Video Editing & Production',
   'UI/UX Design',
+  'Junior AI Engineering',
   'System Optimization',
 ];
 
@@ -175,10 +175,10 @@ const AboutSection = memo(function AboutSection() {
               className="space-y-4 text-[15px] md:text-[15.5px] font-light text-black/60 leading-[1.88] max-w-[580px] text-justify"
             >
               <p>
-                I am <strong className="text-black font-semibold">Arief Maulana</strong>, an Applied Multimedia Engineering Technology student with a solid track record in delivering digital products driven by both visual design and code. My technical expertise spans across Video Production, UI/UX Design, Full-Stack Development, and system OS optimization.
+                I am <strong className="text-black font-semibold">Arief Maulana</strong>, an Applied Multimedia Engineering Technology student specializing in <strong className="text-black/80 font-medium">Front-End Development</strong> and <strong className="text-black/80 font-medium">Video Editing & Production</strong>. I combine design sensibilities with solid web engineering—building responsive, high-performance web applications and creating compelling, high-retention video content for diverse digital channels.
               </p>
               <p>
-                I thrive in fast-paced environments, collaborate effectively within teams, and leverage specific AI algorithms and Junior AI Engineering to accelerate the product development lifecycle—from early prototypes to final production releases, always working with precision and proactivity.
+                With hands-on experience in real-world frontend development and fast-paced multimedia pipelines, I bridge the gap between aesthetic visual storytelling and clean, maintainable code. Proactive and detail-oriented, I leverage modern frameworks and AI-assisted workflows to accelerate production and deliver impactful digital solutions.
               </p>
             </Gsap.div>
 

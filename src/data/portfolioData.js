@@ -2,7 +2,7 @@ export const PORTFOLIO_DATA = {
     profile: {
         name: "Arief Maulana",
         role: "Multimedia Engineer & Developer",
-        bio: "Mahasiswa Program Studi D4 Teknologi Rekayasa Multimedia dengan rekam jejak yang solid dalam menghasilkan produk digital berbasis visual dan kode. Memiliki keahlian teknis yang mencakup Video Production, UI/UX Design, Front-end/Back-end Development, hingga modifikasi sistem operasi untuk peningkatan performa. Terbiasa bekerja dengan alur yang cepat, berkolaborasi dalam tim, dan mendayagunakan algoritma serta prompt AI spesifik untuk mempercepat proses pengembangan. Teliti dan proaktif dalam mengadopsi teknologi baru.",
+        bio: "Mahasiswa D4 Teknologi Rekayasa Multimedia yang berfokus pada Front-End Web Development dan Video Editing/Production. Berpengalaman dalam merancang dan membangun antarmuka web yang responsif, interaktif, dan berkinerja tinggi, sekaligus memproduksi konten video visual yang engaging dan berstandar industri. Memiliki etos kerja yang adaptif, kolaboratif, serta memanfaatkan alur kerja modern berbasis AI untuk menghasilkan produk digital yang presisi, estetik, dan solutif.",
         location: "Indonesia",
         email: "maulana.arief9305@gmail.com",
         phone: "08997441752",
@@ -13,8 +13,25 @@ export const PORTFOLIO_DATA = {
     },
     experience: [
         {
+            title: "Front-End Developer Intern - PT. Arina Digital Mandiri",
+            period: "9 Agustus - 9 September 2026",
+            description: [
+                "Melaksanakan program magang intensif sebagai Front-End Developer selama 1 bulan (9 Agustus – 9 September 2026).",
+                "Mengembangkan dan mengoptimalkan antarmuka web yang responsif, interaktif, dan modern.",
+                "Berkolaborasi dengan tim pengembang dalam implementasi fitur-fitur front-end dan pemeliharaan performa web."
+            ]
+        },
+        {
+            title: "Infocom Division - UKM IECLOP",
+            period: "2025 - Sekarang",
+            description: [
+                "Memimpin dan bertanggung jawab dalam pengembangan antarmuka website resmi organisasi UKM IECLOP.",
+                "Aktif berkontribusi dalam kepanitiaan berbagai kegiatan dan menjaga citra publik organisasi."
+            ]
+        },
+        {
             title: "Video Editor Intern - Sagoe TV",
-            period: "Saat Ini",
+            period: "2 Februari - 15 Juli 2026",
             description: [
                 "Bertanggung jawab atas proses editing dan produksi konten video short-form untuk kebutuhan distribusi media sosial (YouTube, Instagram, TikTok, dan Facebook).",
                 "Berhasil memproduksi dan mempublikasikan lebih dari 90 video dalam kurun waktu 50+ hari kerja.",
