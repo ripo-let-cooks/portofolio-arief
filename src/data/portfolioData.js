@@ -91,7 +91,19 @@ export const PORTFOLIO_DATA = {
             description: "Mengeksplorasi teknik angle dan komposisi menggunakan perangkat mobile, menghasilkan karya visual monokrom."
         }
     ],
-    achievements: [],
+    achievements: [
+        {
+            title: "Peserta Kompetisi Vibe Coding — Festival Technology Policy (FTP) III 2026",
+            project: "Medisift AI",
+            description: "Mengembangkan solusi prototipe cerdas berbasis AI untuk pemrosesan informasi data medis secara cepat dan presisi dalam ajang Vibe Coding di Politeknik Negeri Lhokseumawe (19 September 2026).",
+            team: "Peserta Kompetisi",
+            track: "Vibe Coding / Rapid AI-Assisted Prototyping",
+            techStack: ["AI Assistance", "Python/Web", "Git"],
+            links: {
+                github: "https://github.com/ripo-let-cooks/medisift-ai.git"
+            }
+        }
+    ],
     capabilities: [
         "Video Production",
         "UI/UX Design",

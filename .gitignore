@@ -40,3 +40,6 @@ secret*.json
 
 # deploy/platform artifacts
 .vercel/
+
+# private / personal docs
+INFORMASI_PRIBADI.md
